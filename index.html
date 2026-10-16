@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>רגע של נשימה</title>
+    <title>תנשמי שניה...</title>
 
     <!-- הגדרות PWA למובייל -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="רגע של נשימה">
+    <meta name="apple-mobile-web-app-title" content="תנשמי שניה...">
     <meta name="theme-color" content="#ffffff" id="theme-color-meta">
 
     <!-- Web Application Manifest (Data URI) -->
-    <link rel="manifest" href='data:application/json,{"name":"רגע של נשימה","short_name":"נשימה","start_url":".","display":"standalone","background_color":"#ffffff","theme_color":"#ffffff","orientation":"portrait"}'>
+    <link rel="manifest" href='data:application/json,{"name":"תנשמי שניה...","short_name":"נשימה","start_url":".","display":"standalone","background_color":"#ffffff","theme_color":"#ffffff","orientation":"portrait"}'>
 
     <style>
         :root {
@@ -26,10 +26,12 @@
             --button-gradient: linear-gradient(135deg, #a1c4fd 0%, #e0c3fc 25%, #fecfef 50%, #c2e9fb 75%, #d4fc79 100%);
             --button-text-color: #2d3748;
             --icon-color: #4a5568;
+            --active-text-color: #2d3748;
+            --active-text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
         }
 
         body.dark-mode {
-            --text-color: #e2e8f0;
+            --text-color: #f7fafc;
             --bg-color: #1a202c;
             --panel-bg: #2d3748;
             --panel-border: #4a5568;
@@ -37,6 +39,8 @@
             --select-border: #4a5568;
             --button-text-color: #1a202c;
             --icon-color: #cbd5e0;
+            --active-text-color: #ffffff;
+            --active-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
         }
 
         * {
@@ -128,11 +132,6 @@
             font-weight: 300;
         }
 
-        .preview-graphic {
-            width: 140px;
-            height: 140px;
-        }
-
         .control-group {
             width: 100%;
             display: flex;
@@ -170,11 +169,16 @@
             color: var(--button-text-color);
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(161, 196, 253, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             width: 100%;
             user-select: none;
             margin-top: 10px;
+            transition: background 0.4s ease, transform 0.2s ease;
             -webkit-tap-highlight-color: transparent;
+        }
+
+        button.action-btn:active {
+            transform: scale(0.98);
         }
 
         #screen-active {
@@ -229,16 +233,21 @@
         }
 
         .instruction-text {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 4px;
-            color: var(--text-color);
+            color: var(--active-text-color);
+            text-shadow: var(--active-text-shadow);
+            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
         .timer-text {
-            font-size: 2.8rem;
-            font-weight: 300;
-            color: var(--text-color);
+            font-size: 3.2rem;
+            font-weight: 400;
+            color: var(--active-text-color);
+            text-shadow: var(--active-text-shadow);
+            line-height: 1;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
         .hidden {
@@ -267,28 +276,25 @@
 
     <div class="container">
         <div id="screen-setup">
-            <h1>רגע של נשימה</h1>
+            <h1>תנשמי שניה...</h1>
             
-            <svg class="preview-graphic" viewBox="0 0 300 300">
-                <defs>
-                    <linearGradient id="splash-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#a1c4fd" />
-                        <stop offset="25%" stop-color="#e0c3fc" />
-                        <stop offset="50%" stop-color="#fecfef" />
-                        <stop offset="75%" stop-color="#c2e9fb" />
-                        <stop offset="100%" stop-color="#d4fc79" />
-                    </linearGradient>
-                </defs>
-                <path d="M150,30 C190,25 220,65 240,95 C260,125 285,145 270,180 C255,215 225,225 205,255 C185,285 140,280 110,265 C80,250 45,260 30,225 C15,190 50,165 40,130 C30,95 70,60 100,45 C120,35 130,32 150,30 Z" 
-                      fill="url(#splash-grad-1)" />
-            </svg>
-
             <div class="control-group">
                 <label for="technique-select">טכניקת נשימה:</label>
                 <select id="technique-select">
                     <option value="4-4-4-4" selected>איזון ופוקוס (4-4-4-4 - קופסה)</option>
                     <option value="4-6">רגיעה וזרימה (4-6)</option>
                     <option value="4-7-8">שחרור עמוק (4-7-8)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="palette-select">פלטת צבעים:</label>
+                <select id="palette-select">
+                    <option value="pastel" selected>אביב פסטלי</option>
+                    <option value="ocean">אוקיינוס עמוק</option>
+                    <option value="forest">יער מנטה</option>
+                    <option value="sunset">שקיעה חמה</option>
+                    <option value="lavender">לוונדר מרגיע</option>
                 </select>
             </div>
 
@@ -302,11 +308,11 @@
                 <svg class="splash-svg" viewBox="0 0 300 300">
                     <defs>
                         <linearGradient id="splash-grad-2" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#a1c4fd" />
-                            <stop offset="25%" stop-color="#e0c3fc" />
-                            <stop offset="50%" stop-color="#fecfef" />
-                            <stop offset="75%" stop-color="#c2e9fb" />
-                            <stop offset="100%" stop-color="#d4fc79" />
+                            <stop id="grad-stop-1" offset="0%" stop-color="#a1c4fd" />
+                            <stop id="grad-stop-2" offset="25%" stop-color="#e0c3fc" />
+                            <stop id="grad-stop-3" offset="50%" stop-color="#fecfef" />
+                            <stop id="grad-stop-4" offset="75%" stop-color="#c2e9fb" />
+                            <stop id="grad-stop-5" offset="100%" stop-color="#d4fc79" />
                         </linearGradient>
                     </defs>
                     <path d="M150,30 C190,25 220,65 240,95 C260,125 285,145 270,180 C255,215 225,225 205,255 C185,285 140,280 110,265 C80,250 45,260 30,225 C15,190 50,165 40,130 C30,95 70,60 100,45 C120,35 130,32 150,30 Z" 
@@ -322,20 +328,19 @@
     </div>
 
     <script>
-        (function initTheme() {
+        document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
             const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
             if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
                 document.body.classList.add('dark-mode');
             }
-        })();
 
-        window.addEventListener('load', () => {
             const screenSetup = document.getElementById('screen-setup');
             const screenActive = document.getElementById('screen-active');
             const startBtn = document.getElementById('start-btn');
             const backBtn = document.getElementById('back-btn');
             const techniqueSelect = document.getElementById('technique-select');
+            const paletteSelect = document.getElementById('palette-select');
             const themeToggleBtn = document.getElementById('theme-toggle');
 
             const breatheCircle = document.getElementById('breathe-circle');
@@ -346,12 +351,76 @@
             let countdownInterval;
             let isRunning = false;
 
-            themeToggleBtn.onclick = function(e) {
+            const palettes = {
+                'pastel': {
+                    gradient: 'linear-gradient(135deg, #a1c4fd 0%, #e0c3fc 25%, #fecfef 50%, #c2e9fb 75%, #d4fc79 100%)',
+                    stops: ['#a1c4fd', '#e0c3fc', '#fecfef', '#c2e9fb', '#d4fc79'],
+                    textColor: '#2d3748',
+                    textShadow: '0 1px 4px rgba(255, 255, 255, 0.9)'
+                },
+                'ocean': {
+                    gradient: 'linear-gradient(135deg, #2ea043 0%, #00c6ff 35%, #0072ff 70%, #00223e 100%)',
+                    stops: ['#2ea043', '#00c6ff', '#0072ff', '#004e92', '#00223e'],
+                    textColor: '#ffffff',
+                    textShadow: '0 2px 6px rgba(0, 0, 0, 0.8)'
+                },
+                'forest': {
+                    gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 50%, #80ef80 100%)',
+                    stops: ['#11998e', '#22c197', '#38ef7d', '#5df09e', '#80ef80'],
+                    textColor: '#0f382c',
+                    textShadow: '0 1px 4px rgba(255, 255, 255, 0.8)'
+                },
+                'sunset': {
+                    gradient: 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 40%, #ff6a88 70%, #ff99ac 100%)',
+                    stops: ['#ff7e5f', '#feb47b', '#ff6a88', '#ff859d', '#ff99ac'],
+                    textColor: '#4a0e17',
+                    textShadow: '0 1px 4px rgba(255, 255, 255, 0.8)'
+                },
+                'lavender': {
+                    gradient: 'linear-gradient(135deg, #7F7FD5 0%, #86A8E7 50%, #99B898 100%)',
+                    stops: ['#7F7FD5', '#83B3DE', '#86A8E7', '#8EB1BF', '#99B898'],
+                    textColor: '#1a1c4b',
+                    textShadow: '0 1px 4px rgba(255, 255, 255, 0.9)'
+                }
+            };
+
+            function updatePaletteUI() {
+                const selectedKey = paletteSelect.value;
+                const palette = palettes[selectedKey] || palettes['pastel'];
+                
+                startBtn.style.background = palette.gradient;
+
+                const stops = palette.stops;
+                for (let i = 0; i < 5; i++) {
+                    const stopEl = document.getElementById(`grad-stop-${i+1}`);
+                    if (stopEl && stops[i]) {
+                        stopEl.setAttribute('stop-color', stops[i]);
+                    }
+                }
+
+                // עדכון צבעי הניגודיות רק אם לא נמצאים במצב כהה
+                if (!document.body.classList.contains('dark-mode')) {
+                    document.documentElement.style.setProperty('--active-text-color', palette.textColor);
+                    document.documentElement.style.setProperty('--active-text-shadow', palette.textShadow);
+                }
+            }
+
+            paletteSelect.addEventListener('change', updatePaletteUI);
+            updatePaletteUI();
+
+            themeToggleBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 document.body.classList.toggle('dark-mode');
                 const isDark = document.body.classList.contains('dark-mode');
                 localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            };
+                
+                if (isDark) {
+                    document.documentElement.style.setProperty('--active-text-color', '#ffffff');
+                    document.documentElement.style.setProperty('--active-text-shadow', '0 2px 8px rgba(0, 0, 0, 0.85)');
+                } else {
+                    updatePaletteUI();
+                }
+            });
 
             const techniques = {
                 '4-6': [
